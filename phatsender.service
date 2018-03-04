@@ -1,0 +1,13 @@
+[Unit]
+Description=Envirophat sender
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/phatSender
+ExecStart=/usr/bin/python3 -u /home/pi/phatSender/phat.py
+Environment=ENDPOINT=https://myendpoint
+
+[Install]
+WantedBy=multi-user.target

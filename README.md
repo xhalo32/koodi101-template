@@ -53,3 +53,25 @@ ENDPOINT=https://requestb.in/v6lrggv6 python3 phat.py
 ```
 
 Your requests should appear into your browser after you refresh it.
+
+## Starting the app on boot
+Raspberry pi's operating system uses a thing called [systemd](https://www.freedesktop.org/wiki/Software/systemd/) to handle every process that is running in the background.
+
+There is *phatsender.service* that describes how our process can be started.
+Modify correct endpoint there and copy it into right place by
+```
+nano phatsender.service
+sudo cp phatsender.service /etc/systemd/system/
+systemctl start phatsender
+```
+
+Now you can view the status and the logs in following way
+```
+systemctl status phatsender
+journalctl -u phatsender
+```
+
+To make the process start on boot, we have to enable it by
+```
+sudo systemctl enable phatsender
+```
