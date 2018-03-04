@@ -34,3 +34,22 @@ sudo systemctl start ssh
 ```
 
 Now you can connect from your own machine with ```ssh pi@<ip>``` if you are in the same network.
+
+## Run the project
+Let's update our system and install some needed libraries.
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install python3-requests python3-envirophat
+```
+
+To test if our application works, you can create a "request bin" for
+testing purposes in [requestbin](https://requestb.in).
+You will get bucket with url similiar to *https://requestb.in/v6lrggv6*
+
+You can now try our app by starting it with
+```
+ENDPOINT=https://requestb.in/v6lrggv6 python3 phat.py
+```
+
+Your requests should appear into your browser after you refresh it.
