@@ -74,7 +74,7 @@ Prerequisites
 
 ## Internet of Things (IoT)
 
-### Raspberry pi first time setup
+### Raspberry pi – first time setup
 1. Login with **pi:raspberry**
 2. Type ```sudo raspi-config```
 3. Change the password for pi user to something else
@@ -121,7 +121,7 @@ sudo apt-get install python3-requests python3-envirophat
 
 To test if our application works, you can create a "request bin" for
 testing purposes in [requestbin](https://requestb.in).
-You will get bucket with url similiar to *https://requestb.in/v6lrggv6*
+You will get a bucket with url similiar to *https://requestb.in/v6lrggv6*
 
 You can now try our app by starting it with
 ```
@@ -130,24 +130,37 @@ ENDPOINT=https://requestb.in/v6lrggv6 python3 phat.py
 
 Your requests should appear into your browser after you refresh it.
 
-### Starting the app on boot
-Raspberry pi's operating system uses a thing called [systemd](https://www.freedesktop.org/wiki/Software/systemd/) to handle every process that is running in the background.
+### Starting the app automatically
+One way to keep raspberry sending information without manual
+work, is to use cron to run our script every minute.
 
-There is *phatsender.service* that describes how our process can be started.
-Modify correct endpoint there and copy it into right place by
-```
-nano phatsender.service
-sudo cp phatsender.service /etc/systemd/system/
-systemctl start phatsender
-```
+That can be achieved by opening crontab editor by typing ```crontab -e```
 
-Now you can view the status and the logs in following way
+Window will open and you can append the following line at end of the file,
+of course replacing the endpoint with a correct one.
 ```
-systemctl status phatsender
-journalctl -u phatsender
+* * * * * ENDPOINT=https://requestb.in/1ljyjs61 python3 /home/pi/koodi101-template/iot/phat.py >> /home/pi/phat.log 2>&1
 ```
+So what does this mean?
+* **\* \* \* \* \*** ENDPOINT=https://requestb.in/1ljyjs61 python3 /home/pi/koodi101-template/iot/phat.py >> /home/pi/phat.log 2>&1
+    * When to run the script, *see below*
+* \* \* \* \* \* **ENDPOINT=https://requestb.in/1ljyjs61** python3 /home/pi/koodi101-template/iot/phat.py >> /home/pi/phat.log 2>&1
+    * Pass environmental variable for script to be executed
+* \* \* \* \* \* ENDPOINT=https://requestb.in/1ljyjs61 **python3 /home/pi/koodi101-template/iot/phat.py** >> /home/pi/phat.log 2>&1
+    * Normal command to run a script with python
+* \* \* \* \* \* ENDPOINT=https://requestb.in/1ljyjs61 python3 /home/pi/koodi101-template/iot/phat.py **>> /home/pi/phat.log** 2>&1
+    * **Append** output to a file
+* \* \* \* \* \* ENDPOINT=https://requestb.in/1ljyjs61 python3 /home/pi/koodi101-template/iot/phat.py >> /home/pi/phat.log **2>&1**
+    * By default, error messages wouldn't be logged into the file.
+      With this definition, we redirect the to standard output and
+      therefore into the same file.
 
-To make the process start on boot, we have to enable it by
-```
-sudo systemctl enable phatsender
-```
+Cron works by comparing current time to parameters at the beginning of every line.
+If it matches, it will run the script.
+
+Our example is run every minute, although
+it should match at anytime, why is it so? Well, cron runs only every minute, so
+that is why this will work and that is why we can't schedule it to run more often.
+
+There exist cool tool to "translate" cron time entries into human readable form:
+[https://crontab.guru](https://crontab.guru)
