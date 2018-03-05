@@ -5,6 +5,7 @@ const logger = require('koa-logger');
 const cors = require('kcors');
 
 const chats = require('./controllers/chats');
+const greeting = require('./controllers/greeting');
 
 const app = module.exports = new Koa();
 
@@ -17,6 +18,8 @@ const publicRouter = new Router({ prefix: '/api' });
 
 publicRouter.post('/chats', chats.create);
 publicRouter.get('/chats', chats.list);
+
+publicRouter.get('/greeting', greeting.greet);
 
 app.use(publicRouter.routes());
 app.use(publicRouter.allowedMethods());

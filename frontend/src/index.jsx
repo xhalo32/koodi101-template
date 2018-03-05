@@ -5,16 +5,46 @@ import ReactDOM from 'react-dom';
 
 import './assets/stylesheets/style.css'
 
+const baseURL = process.env.ENDPOINT;
+
 /****** ADD YOUR CODE AFTER THIS LINE ******/
 
-const Hello = () => (
-  <div>Hello World!</div>
+const getGreetingFromBackend = async () => {
+  try {
+    const url = `${baseURL}/api/greeting`
+    console.log("Getting greeting from "+url)
+    const response = await fetch(url);
+    return response.json()
+  } catch (error) {
+    console.error(error);
+  }
+  return { greeting :"Could not get greeting from backend"};
+};
+
+
+const BackendGreeting = (props) => (
+  <div><p>Backend says: {props.greeting}</p></div>
 );
 
+
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      greeting: "",
+    };
+  }
+
+  async componentWillMount() {
+    const response = await getGreetingFromBackend();
+    this.setState({greeting: response.greeting});
+  }
+
   render() {
+
     return (
-      <Hello />
+      <BackendGreeting greeting={this.state.greeting} />
     );
   }
 }

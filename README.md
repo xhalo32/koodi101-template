@@ -18,6 +18,16 @@ docker-compose build
 docker-compose up -d
 ```
 
+**DO NOTE:** when you run the project with docker-compose on your own server, you need to do the following
+
+```shell
+export ENDPOINT='http://195.201.28.137'
+docker-compose build
+docker-compose up -d
+```
+
+Replace 195.201.28.137 with the ip address of your team's server.
+
 Nice, how can I now see if the project is already running?
 
 ```shell
@@ -49,7 +59,7 @@ Prerequisites
     npm run dev
 ```
 
-* The backend is now running in [http://localhost:9000](http://localhost:9000/api/chats)
+* The backend is now running in [http://localhost:9000](http://localhost:9000/api/greeting)
 
 #### Frontend
 
