@@ -62,7 +62,7 @@ Prerequisites
 * The frontend is now running in [http://localhost:8000](http://localhost:8000)
 
 
-## IoT
+## Internet of Things (IoT)
 
 ### Raspberry pi first time setup
 1. Login with **pi:raspberry**
