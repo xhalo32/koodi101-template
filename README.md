@@ -7,6 +7,8 @@
 ```shell
 docker-compose build
 docker-compose up
+
+Hit Ctrl+C to stop the process
 ```
 
 What if I want to run the project in the background?
