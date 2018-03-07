@@ -116,7 +116,7 @@ Let's update our system and install some needed libraries.
 ```
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install python3-requests python3-envirophat
+sudo apt-get install python3-requests python3-envirophat git
 ```
 
 To test if our application works, you can create a "request bin" for
@@ -131,6 +131,11 @@ ENDPOINT=https://requestb.in/v6lrggv6 python3 phat.py
 Your requests should appear into your browser after you refresh it.
 
 ### Starting the app automatically
+First clone your forked version of this repository to the Rasperry pi
+```
+git clone <url>
+```
+
 One way to keep raspberry sending information without manual
 work, is to use cron to run our script every minute.
 
