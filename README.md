@@ -21,7 +21,7 @@ docker-compose up -d
 **DO NOTE:** when you run the project with docker-compose on your own server, you need to do the following
 
 ```shell
-export ENDPOINT='http://195.201.28.137'
+export ENDPOINT='http://195.201.28.137:9000'
 docker-compose build
 docker-compose up -d
 ```
