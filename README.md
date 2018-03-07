@@ -123,6 +123,11 @@ To test if our application works, you can create a "request bin" for
 testing purposes in [requestbin](https://requestb.in).
 You will get a bucket with url similiar to *https://requestb.in/v6lrggv6*
 
+First clone your forked version of this repository to the Rasperry pi and go to the iot folder
+```
+git clone <url>
+```
+
 You can now try our app by starting it with
 ```
 ENDPOINT=https://requestb.in/v6lrggv6 python3 phat.py
@@ -131,10 +136,6 @@ ENDPOINT=https://requestb.in/v6lrggv6 python3 phat.py
 Your requests should appear into your browser after you refresh it.
 
 ### Starting the app automatically
-First clone your forked version of this repository to the Rasperry pi
-```
-git clone <url>
-```
 
 One way to keep raspberry sending information without manual
 work, is to use cron to run our script every minute.
